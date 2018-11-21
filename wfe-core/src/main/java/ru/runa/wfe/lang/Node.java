@@ -246,7 +246,7 @@ public abstract class Node extends GraphElement {
             Token parentToken = executionContext.getToken().getParent();
             ((Node) getParentElement()).onBoundaryEvent(executionContext.getProcessDefinition(), parentToken, (BoundaryEvent) this);
             for (Token token : parentToken.getActiveChildren()) {
-                if (Objects.equal(token, executionContext.getToken())) {
+                if (token.getNodeNotNull(processDefinition) instanceof BoundaryEvent) {
                     continue;
                 }
                 token.end(executionContext.getProcessDefinition(), null, ((BoundaryEvent) this).getTaskCompletionInfoIfInterrupting(), true);
