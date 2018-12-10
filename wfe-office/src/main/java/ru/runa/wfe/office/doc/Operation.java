@@ -1,6 +1,6 @@
 package ru.runa.wfe.office.doc;
 
-import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 
 public abstract class Operation {
 
@@ -16,6 +16,6 @@ public abstract class Operation {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(getClass()).add("name", getName()).toString();
+        return Objects.toStringHelper(getClass()).add("name", getName()).toString();
     }
 }

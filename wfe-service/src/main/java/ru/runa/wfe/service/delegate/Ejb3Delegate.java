@@ -17,7 +17,6 @@ import ru.runa.wfe.commons.SystemProperties;
 import ru.runa.wfe.commons.ftl.ExpressionEvaluator;
 import ru.runa.wfe.service.utils.EjbProperties;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 import com.google.common.base.Throwables;
@@ -89,7 +88,7 @@ public abstract class Ejb3Delegate {
 
     @SuppressWarnings("unchecked")
     protected <T> T getService() {
-        String providerUrl = MoreObjects.firstNonNull(getCustomProviderUrl(), EJB_LOCAL);
+        String providerUrl = Objects.firstNonNull(getCustomProviderUrl(), EJB_LOCAL);
         Map<String, Object> providerServices = services.get(providerUrl);
         if (providerServices == null) {
             providerServices = Maps.newHashMap();
@@ -121,7 +120,7 @@ public abstract class Ejb3Delegate {
     }
 
     private InitialContext getInitialContext() {
-        String providerUrl = MoreObjects.firstNonNull(getCustomProviderUrl(), EJB_LOCAL);
+        String providerUrl = Objects.firstNonNull(getCustomProviderUrl(), EJB_LOCAL);
         if (!initialContexts.containsKey(providerUrl)) {
             try {
                 Properties properties;

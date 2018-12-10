@@ -50,7 +50,6 @@ import ru.runa.wfe.extension.Assignable;
 import ru.runa.wfe.task.Task;
 import ru.runa.wfe.user.Executor;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 /**
@@ -166,7 +165,7 @@ public class Swimlane implements Serializable, Assignable {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("name", name).add("value", executor).toString();
+        return Objects.toStringHelper(this).add("name", name).add("value", executor).toString();
     }
 
 }

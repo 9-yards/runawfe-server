@@ -12,7 +12,6 @@ import ru.runa.wfe.var.UserType;
 import ru.runa.wfe.var.VariableDefinition;
 import ru.runa.wfe.var.dto.WfVariable;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 public class DelegateDefinitionVariableProvider extends AbstractVariableProvider {
@@ -89,6 +88,6 @@ public class DelegateDefinitionVariableProvider extends AbstractVariableProvider
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("definitionId", definitionId).toString();
+        return Objects.toStringHelper(this).add("definitionId", definitionId).toString();
     }
 }

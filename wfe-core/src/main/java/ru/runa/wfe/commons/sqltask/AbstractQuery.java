@@ -17,7 +17,7 @@
  */
 package ru.runa.wfe.commons.sqltask;
 
-import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 
 /**
  * Represents Queury in {@link ru.runa.commons.sqltask.DatabaseTask} Created on
@@ -65,6 +65,6 @@ public abstract class AbstractQuery {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("sql", sql).toString();
+        return Objects.toStringHelper(this).add("sql", sql).toString();
     }
 }

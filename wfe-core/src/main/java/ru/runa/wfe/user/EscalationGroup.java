@@ -14,7 +14,7 @@ import org.hibernate.annotations.ForeignKey;
 import ru.runa.wfe.execution.Process;
 import ru.runa.wfe.task.Task;
 
-import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 
 /**
  * Used for assigning escalated tasks.
@@ -79,7 +79,7 @@ public class EscalationGroup extends TemporaryGroup {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("id", getId()).add("name", getName()).add("original", getOriginalExecutor()).add("level", level)
+        return Objects.toStringHelper(this).add("id", getId()).add("name", getName()).add("original", getOriginalExecutor()).add("level", level)
                 .toString();
     }
 }

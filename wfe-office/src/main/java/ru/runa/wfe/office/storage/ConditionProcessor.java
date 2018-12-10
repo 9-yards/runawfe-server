@@ -12,8 +12,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ru.runa.wfe.InternalApplicationException;
 import ru.runa.wfe.commons.CalendarUtil;
-import ru.runa.wfe.user.Executor;
+import ru.runa.wfe.extension.handler.ParamsDef;
+import ru.runa.wfe.var.ParamBasedVariableProvider;
 import ru.runa.wfe.var.VariableProvider;
+import ru.runa.wfe.var.dto.WfVariable;
+import ru.runa.wfe.var.format.DateFormat;
+import ru.runa.wfe.var.format.DateTimeFormat;
+import ru.runa.wfe.var.format.LongFormat;
+import ru.runa.wfe.var.format.VariableFormat;
 
 public class ConditionProcessor {
 
@@ -86,10 +92,35 @@ public class ConditionProcessor {
                 sb.append(LIKE_EXPR_END);
             } else if (token.startsWith("@")) {
                 String variableName = token.substring(1);
-                Object value = variableProvider.getValue(variableName);
-                String toAppend = formatParameterValue(value);
-                sb.append(SPACE);
-                sb.append(toAppend);
+                String toAppend = "";
+                if (variableProvider instanceof ParamBasedVariableProvider) {
+                    ParamsDef paramsDef = ((ParamBasedVariableProvider) variableProvider).getParamsDef();
+                    if (paramsDef != null) {
+                        if (paramsDef.getInputParam(variableName) != null) {
+                            Object inputParamValue = paramsDef.getInputParamValue(variableName, variableProvider);
+                            if (inputParamValue instanceof Number) {
+                                toAppend = inputParamValue.toString();
+                            } else if (inputParamValue instanceof Date) {
+                                toAppend = ((Date) inputParamValue).getTime() + "";
+                            } else {
+                                toAppend = "'" + inputParamValue + "'";
+                            }
+                        } else {
+                            WfVariable wfVariable = variableProvider.getVariableNotNull(variableName);
+                            VariableFormat format = wfVariable.getDefinition().getFormatNotNull();
+                            if (format instanceof LongFormat) {
+                                toAppend = wfVariable.getStringValue();
+                            } else if (format instanceof DateTimeFormat || format instanceof DateFormat) {
+                                Date date = (Date) wfVariable.getValue();
+                                toAppend = String.valueOf(date.getTime());
+                            } else {
+                                toAppend = "'" + wfVariable.getStringValue() + "'";
+                            }
+                        }
+                    }
+                    sb.append(SPACE);
+                    sb.append(toAppend);
+                }
             } else {
                 sb.append(SPACE);
                 if (previousAttributeValue != null && previousAttributeValue instanceof Date && operators.contains(previousOperator)) {
@@ -108,34 +139,34 @@ public class ConditionProcessor {
 
     private static long getTime(String source) {
         source = source.replaceAll("'", "");
+        Date date = null;
         try {
-            return CalendarUtil.convertToDate(source, CalendarUtil.DATE_WITH_HOUR_MINUTES_FORMAT).getTime();
+            date = CalendarUtil.convertToDate(source, CalendarUtil.DATE_WITH_HOUR_MINUTES_FORMAT);
         } catch (InternalApplicationException e) {
-            return CalendarUtil.convertToDate(source, CalendarUtil.DATE_WITHOUT_TIME_FORMAT).getTime();
+            date = CalendarUtil.convertToDate(source, CalendarUtil.DATE_WITHOUT_TIME_FORMAT);
         } catch (Exception e) {
-            throw new InternalApplicationException("Unable parse date '" + source + "'", e);
+            log.error(String.format("error parse date [%s]", source));
+            throw Throwables.propagate(e);
         }
+        return date == null ? 0 : date.getTime();
     }
 
     private static StringBuilder appendAttribute(StringBuilder sb, Map<String, Object> variables, String token) {
         String var = token.substring(1, token.length() - 1);
         if (variables.keySet().contains(var)) {
+            String toAppend = "";
             Object obj = variables.get(var);
             previousAttributeValue = obj;
-            sb.append(formatParameterValue(obj));
+            if (obj instanceof String) {
+                toAppend = "'" + obj + "'";
+            } else if (obj instanceof Date) {
+                toAppend = String.valueOf(((Date) obj).getTime());
+            } else {
+                toAppend = obj + "";
+            }
+            sb.append(toAppend);
         }
         return sb;
-    }
-
-    private static String formatParameterValue(Object value) {
-        if (value instanceof Number) {
-            return value.toString();
-        } else if (value instanceof Date) {
-            return String.valueOf(((Date) value).getTime());
-        } else if (value instanceof Executor) {
-            return "'" + ((Executor) value).getName() + "'";
-        }
-        return "'" + value + "'";
     }
 
 }

@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import ru.runa.wfe.InternalApplicationException;
 import ru.runa.wfe.var.format.VariableFormatContainer;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -126,7 +125,7 @@ public class UserType implements Serializable {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(getClass()).add("name", name).add("attributes", attributes).toString();
+        return Objects.toStringHelper(getClass()).add("name", name).add("attributes", attributes).toString();
     }
 
 }

@@ -174,7 +174,7 @@ public class InitializerLogic implements ApplicationListener<ContextRefreshedEve
                 postProcessPatches(databaseVersion);
             }
             dbTransactionalInitializer.initLocalizations();
-            if (DatabaseProperties.isDatabaseSettingsEnabled()) {
+            if (DatabaseProperties.isDynamicSettingsEnabled()) {
                 PropertyResources.setDatabaseAvailable(true);
             }
             log.info("initialization completed");

@@ -21,7 +21,6 @@
  */
 package ru.runa.wfe.execution;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
@@ -277,7 +276,7 @@ public class ExecutionContext {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("processId", getToken().getProcess().getId()).add("tokenId", getToken().getId()).toString();
+        return Objects.toStringHelper(this).add("processId", getToken().getProcess().getId()).add("tokenId", getToken().getId()).toString();
     }
 
     private void setVariableValue(VariableDefinition variableDefinition, Object value) {

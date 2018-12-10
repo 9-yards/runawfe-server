@@ -17,7 +17,6 @@
  */
 package ru.runa.wfe.var;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import java.io.Serializable;
@@ -254,7 +253,7 @@ public class VariableDefinition implements Serializable {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("name", getName()).add("format", format).toString();
+        return Objects.toStringHelper(this).add("name", getName()).add("format", format).toString();
     }
 
     public static String toScriptingName(String variableName) {

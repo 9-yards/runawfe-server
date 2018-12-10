@@ -45,7 +45,6 @@ import ru.runa.wfe.commons.ArraysCommons;
 import ru.runa.wfe.presentation.filter.FilterCriteria;
 import ru.runa.wfe.presentation.filter.FilterCriteriaFactory;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
@@ -434,7 +433,7 @@ public class BatchPresentation implements Cloneable, Serializable {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("type", type).add("name", name).toString();
+        return Objects.toStringHelper(this).add("type", type).add("name", name).toString();
     }
 
     public boolean fieldEquals(BatchPresentation other) {

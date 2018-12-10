@@ -17,7 +17,6 @@
  */
 package ru.runa.wfe.user;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import java.util.Date;
@@ -161,7 +160,7 @@ public abstract class Executor extends SecuredObjectBase implements Comparable<E
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("id", getId()).add("name", getName()).toString();
+        return Objects.toStringHelper(this).add("id", getId()).add("name", getName()).toString();
     }
 
     @Transient

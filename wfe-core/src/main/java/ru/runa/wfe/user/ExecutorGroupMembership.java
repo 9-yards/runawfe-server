@@ -37,7 +37,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.Index;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 /**
@@ -140,6 +139,6 @@ public class ExecutorGroupMembership {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("group", getGroup()).add("executor", getExecutor()).toString();
+        return Objects.toStringHelper(this).add("group", getGroup()).add("executor", getExecutor()).toString();
     }
 }

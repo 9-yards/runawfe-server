@@ -31,7 +31,6 @@ import ru.runa.wfe.lang.ProcessDefinition;
 import ru.runa.wfe.lang.TaskDefinition;
 import ru.runa.wfe.lang.Transition;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
@@ -126,7 +125,7 @@ public class WfNode implements Serializable {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("id", id).add("name", name).toString();
+        return Objects.toStringHelper(this).add("id", id).add("name", name).toString();
     }
 
 }

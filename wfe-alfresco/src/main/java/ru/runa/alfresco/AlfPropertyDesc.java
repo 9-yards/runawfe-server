@@ -7,7 +7,6 @@ import ru.runa.alfresco.anno.Property;
 import ru.runa.wfe.InternalApplicationException;
 import ru.runa.wfe.commons.ClassLoaderUtil;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
@@ -134,6 +133,6 @@ public class AlfPropertyDesc {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("alf", propertyName).add("java", fieldName).add("type", propertyClass).toString();
+        return Objects.toStringHelper(this).add("alf", propertyName).add("java", fieldName).add("type", propertyClass).toString();
     }
 }

@@ -1,6 +1,5 @@
 package ru.runa.wfe.presentation;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -243,7 +242,7 @@ public class BatchPresentationFields implements Serializable {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("displayIds", displayIds).add("sortIds", sortIds).add("sortModes", sortModes)
+        return Objects.toStringHelper(this).add("displayIds", displayIds).add("sortIds", sortIds).add("sortModes", sortModes)
                 .add("groupIds", groupIds).add("filters", filters).add("dynamics", dynamics).toString();
     }
 

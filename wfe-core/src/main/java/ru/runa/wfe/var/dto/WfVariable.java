@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import ru.runa.wfe.var.VariableDefinition;
 import ru.runa.wfe.var.format.StringFormat;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
@@ -74,7 +73,7 @@ public class WfVariable implements Serializable {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("definition", definition).add("value", value).toString();
+        return Objects.toStringHelper(this).add("definition", definition).add("value", value).toString();
     }
 
 }
